@@ -22,3 +22,20 @@ class Value:
 
     def __repr__(self) -> str:
         return f'Value(data={self.data}, grad={self.grad})'
+
+    def __add__(self, other: Value) -> Value:
+        output = Value(data=self.data + other.data, _children=(self, other))
+
+        return output
+
+    def __mul__(self, other: Value) -> Value:
+        output = Value(data=self.data * other.data, _children=(self, other))
+
+        return output
+
+    # pylint: disable=C0116
+    def tanh(self) -> Value:
+        tan = (math.exp(2 * self.data) - 1) / (math.exp(2 * self.data) + 1)
+        output = Value(data=tan, _children=(self,))
+
+        return output

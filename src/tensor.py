@@ -6,6 +6,8 @@ from __future__ import annotations
 from typing import Tuple
 import math
 
+from src.utils import build_topological_order
+
 
 class Value:
     """
@@ -58,3 +60,20 @@ class Value:
         output._backward = _backward
 
         return output
+
+    def backward(self) -> None:
+        topological_order = []
+        visited = set()
+
+        topological_order = build_topological_order(
+            v=self,
+            topological_order=topological_order,
+            visited=visited
+        )
+
+        # Go one variable at a time and apply the chain rule to get its
+        # gradient.
+        self.grad = 1.0  # Base case.
+
+        for v in reversed(topological_order):
+            v._backward()

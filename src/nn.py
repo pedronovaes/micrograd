@@ -39,6 +39,9 @@ class Neuron:
 
         return self.W + [self.b]
 
+    def __repr__(self) -> str:
+        return f"Neuron({len(self.W)})"
+
 
 class Layer:
     """
@@ -68,6 +71,9 @@ class Layer:
             for neuron in self.neurons
             for parameter in neuron.parameters()
         ]
+
+    def __repr__(self) -> str:
+        return f"Layer of [{', '.join(str(n) for n in self.neurons)}]"
 
 
 class MLP:
@@ -104,3 +110,12 @@ class MLP:
             for layer in self.layers
             for parameter in layer.parameters()
         ]
+
+    def zero_grad(self) -> None:
+        """Set to zero the gradients of all the mlp parameters."""
+
+        for parameter in self.parameters():
+            parameter.grad = 0.0
+
+    def __repr__(self) -> str:
+        return f"MLP of [{', '.join(str(layer) for layer in self.layers)}]"

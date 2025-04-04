@@ -135,4 +135,4 @@ class Value:
             v._backward()
 
     def __repr__(self) -> str:
-        return f"Value(data={self.data}, grad={self.grad})"
+        return f"Value(data={self.data})"

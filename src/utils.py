@@ -29,3 +29,19 @@ def build_topological_order(v: Value,
         topological_order.append(v)
 
     return topological_order
+
+
+def mean_squared_error(y_true: List[Value], y_pred: List[Value]) -> Value:
+    """
+    Mean squared error regression loss.
+
+    Attributes:
+        y_true: ground truth target values.
+        y_pred: estimated target values.
+    """
+    loss = sum(
+        (y_hat - y_gt) ** 2
+        for y_gt, y_hat in zip(y_true, y_pred)
+    )
+
+    return loss
